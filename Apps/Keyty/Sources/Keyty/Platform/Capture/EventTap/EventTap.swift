@@ -116,7 +116,7 @@ final class EventTap {
     }
 
     fileprivate func handleFlagsChanged(_ cgEvent: CGEvent) {
-        let flags = NSEvent.ModifierFlags(rawValue: UInt(cgEvent.flags.rawValue))
+        let flags = NSEvent.ModifierFlags(cgEventFlags: cgEvent.flags)
         self.delegate?.eventTap(self, noteFlagsChanged: flags)
     }
 
