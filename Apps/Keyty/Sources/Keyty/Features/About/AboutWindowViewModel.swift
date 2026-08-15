@@ -65,6 +65,9 @@ final class AboutWindowViewModel: ObservableObject {
                     ),
                     ListItem(
                         title: "Serhii Butenko"
+                    ),
+                    ListItem(
+                        title: "James Haskin"
                     )
                 ]
             )
