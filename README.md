@@ -35,7 +35,7 @@ Keyty is a free, open-source app that visualizes your keyboard and mouse actions
 
 ### Keyboard
 
-![Keyboard Demo](Docs/Resources/demo.gif)
+<video src="Assets/Marketing/KeyboardVisualizer/keyboard-pbt-colored-desktop-demo.webm" autoplay loop muted playsinline></video>
 
 - Real-time display of keyboard shortcuts, special keys, and typed input
 - Customizable overlay styles, themes, size, layout, and fade timing
