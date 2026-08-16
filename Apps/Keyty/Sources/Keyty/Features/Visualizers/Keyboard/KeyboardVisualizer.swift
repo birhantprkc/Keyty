@@ -136,12 +136,13 @@ final class KeyboardVisualizer {
             return
         }
 
-        if self.visualizerSettings.onlyShowModifiedKeystrokes && !keystroke.isModified {
+        let isSpecialKey = KeyboardSpecialKeyResolver.isSpecial(keystroke)
+
+        if !self.visualizerSettings.showSpecialKeys, isSpecialKey {
             return
         }
 
-        if !self.visualizerSettings.showSpecialKeys,
-           KeyboardSpecialKeyResolver.isSpecial(keystroke) {
+        if self.visualizerSettings.onlyShowModifiedKeystrokes && !keystroke.isModified && !isSpecialKey {
             return
         }
 
