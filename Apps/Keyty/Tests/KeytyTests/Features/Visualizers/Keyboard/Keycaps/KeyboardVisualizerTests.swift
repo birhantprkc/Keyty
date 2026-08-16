@@ -59,4 +59,37 @@ final class KeyboardVisualizerTests: XCTestCase {
         XCTAssertEqual(self.visualizer.visibleGroupCount, 0)
         XCTAssertTrue(self.settings.isEnabled)
     }
+
+    func testOnlyShowModifiedKeystrokesStillShowsStandaloneSpecialKeys() {
+        self.settings.onlyShowModifiedKeystrokes = true
+        self.settings.showSpecialKeys = true
+        self.visualizer.isPresentationActive = true
+
+        self.visualizer.display(.keystroke(.stub(keyCode: .escape)))
+
+        XCTAssertEqual(self.visualizer.visibleGroupCount, 1)
+    }
+
+    func testOnlyShowModifiedKeystrokesStillHidesStandaloneRegularKeys() {
+        self.settings.onlyShowModifiedKeystrokes = true
+        self.visualizer.isPresentationActive = true
+
+        self.visualizer.display(.keystroke(.stub(
+            keyCode: .a,
+            characters: "a",
+            charactersIgnoringModifiers: "a"
+        )))
+
+        XCTAssertEqual(self.visualizer.visibleGroupCount, 0)
+    }
+
+    func testSpecialKeysToggleStillHidesStandaloneSpecialKeysWhenDisabled() {
+        self.settings.onlyShowModifiedKeystrokes = true
+        self.settings.showSpecialKeys = false
+        self.visualizer.isPresentationActive = true
+
+        self.visualizer.display(.keystroke(.stub(keyCode: .escape)))
+
+        XCTAssertEqual(self.visualizer.visibleGroupCount, 0)
+    }
 }
