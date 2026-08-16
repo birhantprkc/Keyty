@@ -22,6 +22,7 @@ final class AboutWindowViewModelTests: XCTestCase {
                 "Yullia Babichuk",
                 "Oleksii Petruk",
                 "Serhii Butenko",
+                "James Haskin",
             ]
         )
     }
@@ -33,6 +34,6 @@ final class AboutWindowViewModelTests: XCTestCase {
 
         XCTAssertEqual(viewModel.selectedSections.first?.title, "Contributors")
         XCTAssertEqual(viewModel.selectedSections.first?.subtitle, "People who helped make Keyty better.")
-        XCTAssertEqual(viewModel.selectedSections.first?.listItems.count, 4)
+        XCTAssertEqual(viewModel.selectedSections.first?.listItems.count, 5)
     }
 }
