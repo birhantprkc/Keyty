@@ -16,25 +16,58 @@ enum KeyboardVisualizerAlignment: Int, CaseIterable {
     /// Pinned to the cross-axis end (right for a vertical stack, top for a horizontal stack).
     case trailing = 2
 
-    var horizontalLabel: String {
+    static let horizontalOptions: [KeyboardVisualizerAlignment] = [.leading, .center, .trailing]
+    static let verticalOptions: [KeyboardVisualizerAlignment] = [.trailing, .center, .leading]
+
+    var horizontalPickerIcon: String {
         switch self {
         case .leading:
-            L10n.Anchor.left
+            "⇥"
         case .center:
-            L10n.Anchor.center
+            "◆"
         case .trailing:
-            L10n.Anchor.right
+            "⇤"
         }
     }
 
-    var verticalLabel: String {
+    var horizontalPickerLabel: String {
         switch self {
         case .leading:
-            L10n.Anchor.bottom
+            L10n.Displays.horizontalAlignmentLeftToRight
         case .center:
-            L10n.Anchor.verticalCenter
+            L10n.Displays.horizontalAlignmentCenterOut
         case .trailing:
-            L10n.Anchor.top
+            L10n.Displays.horizontalAlignmentRightToLeft
         }
+    }
+
+    var verticalPickerIcon: String {
+        switch self {
+        case .leading:
+            "↑"
+        case .center:
+            "◆"
+        case .trailing:
+            "↓"
+        }
+    }
+
+    var verticalPickerLabel: String {
+        switch self {
+        case .leading:
+            L10n.Displays.verticalAlignmentBottomUp
+        case .center:
+            L10n.Displays.verticalAlignmentMiddleOut
+        case .trailing:
+            L10n.Displays.verticalAlignmentTopDown
+        }
+    }
+
+    var horizontalPickerTitle: String {
+        "\(self.horizontalPickerIcon) \(self.horizontalPickerLabel)"
+    }
+
+    var verticalPickerTitle: String {
+        "\(self.verticalPickerIcon) \(self.verticalPickerLabel)"
     }
 }

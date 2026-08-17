@@ -54,6 +54,12 @@
 "displays.custom_horizontal_alignment_subtitle" = "Kies hoe de overlay zich horizontaal uitbreidt vanaf de aangepaste positie.";
 "displays.custom_vertical_alignment_label" = "Verticale uitlijning";
 "displays.custom_vertical_alignment_subtitle" = "Kies hoe de overlay zich verticaal uitbreidt vanaf de aangepaste positie.";
+"displays.horizontal_alignment_left_to_right" = "Van links naar rechts";
+"displays.horizontal_alignment_center_out" = "Vanuit het midden";
+"displays.horizontal_alignment_right_to_left" = "Van rechts naar links";
+"displays.vertical_alignment_top_down" = "Van boven naar beneden";
+"displays.vertical_alignment_middle_out" = "Vanuit het midden";
+"displays.vertical_alignment_bottom_up" = "Van beneden naar boven";
 
 /* General settings pane */
 "general.appearance_section_title" = "App";

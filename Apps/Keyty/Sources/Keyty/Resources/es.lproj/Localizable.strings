@@ -54,6 +54,12 @@
 "displays.custom_horizontal_alignment_subtitle" = "Elige cómo se expande horizontalmente la superposición desde la posición personalizada.";
 "displays.custom_vertical_alignment_label" = "Alineación vertical";
 "displays.custom_vertical_alignment_subtitle" = "Elige cómo se expande verticalmente la superposición desde la posición personalizada.";
+"displays.horizontal_alignment_left_to_right" = "De izquierda a derecha";
+"displays.horizontal_alignment_center_out" = "Desde el centro";
+"displays.horizontal_alignment_right_to_left" = "De derecha a izquierda";
+"displays.vertical_alignment_top_down" = "De arriba abajo";
+"displays.vertical_alignment_middle_out" = "Desde el centro";
+"displays.vertical_alignment_bottom_up" = "De abajo arriba";
 
 /* General settings pane */
 "general.appearance_section_title" = "Aplicación";

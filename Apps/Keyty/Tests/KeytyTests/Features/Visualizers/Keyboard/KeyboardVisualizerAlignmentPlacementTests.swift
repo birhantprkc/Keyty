@@ -13,6 +13,14 @@ final class KeyboardVisualizerAlignmentPlacementTests: XCTestCase {
     private let area = CGRect(x: 100, y: 200, width: 800, height: 600)
     private let size = CGSize(width: 120, height: 80)
 
+    func testHorizontalOptionsFollowReadingDirection() {
+        XCTAssertEqual(KeyboardVisualizerAlignment.horizontalOptions, [.leading, .center, .trailing])
+    }
+
+    func testVerticalOptionsFollowTopToBottomOrder() {
+        XCTAssertEqual(KeyboardVisualizerAlignment.verticalOptions, [.trailing, .center, .leading])
+    }
+
     func testFrameCentersContentOnNormalizedPosition() {
         let frame = KeyboardVisualizerAlignment.frame(
             for: self.size,

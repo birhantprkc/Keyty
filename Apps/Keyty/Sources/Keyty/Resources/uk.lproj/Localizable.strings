@@ -54,6 +54,12 @@
 "displays.custom_horizontal_alignment_subtitle" = "Виберіть, як накладка розширюється горизонтально від користувацької позиції.";
 "displays.custom_vertical_alignment_label" = "Вертикальне вирівнювання";
 "displays.custom_vertical_alignment_subtitle" = "Виберіть, як накладка розширюється вертикально від користувацької позиції.";
+"displays.horizontal_alignment_left_to_right" = "Зліва направо";
+"displays.horizontal_alignment_center_out" = "Від центру";
+"displays.horizontal_alignment_right_to_left" = "Справа наліво";
+"displays.vertical_alignment_top_down" = "Згори вниз";
+"displays.vertical_alignment_middle_out" = "Від центру";
+"displays.vertical_alignment_bottom_up" = "Знизу вгору";
 
 /* General settings pane */
 "general.appearance_section_title" = "Програма";

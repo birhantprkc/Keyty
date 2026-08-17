@@ -115,8 +115,8 @@ private extension DisplaysSettingsPane {
                 subtitle: L10n.Displays.customHorizontalAlignmentSubtitle
             ) {
                 Picker("", selection: self.$model.customHorizontalAlignment) {
-                    ForEach(KeyboardVisualizerAlignment.allCases, id: \.rawValue) { alignment in
-                        Text(alignment.horizontalLabel).tag(alignment)
+                    ForEach(KeyboardVisualizerAlignment.horizontalOptions, id: \.rawValue) { alignment in
+                        Text(alignment.horizontalPickerTitle).tag(alignment)
                     }
                 }
                 .labelsHidden()
@@ -131,8 +131,8 @@ private extension DisplaysSettingsPane {
                 subtitle: L10n.Displays.customVerticalAlignmentSubtitle
             ) {
                 Picker("", selection: self.$model.customVerticalAlignment) {
-                    ForEach(KeyboardVisualizerAlignment.allCases, id: \.rawValue) { alignment in
-                        Text(alignment.verticalLabel).tag(alignment)
+                    ForEach(KeyboardVisualizerAlignment.verticalOptions, id: \.rawValue) { alignment in
+                        Text(alignment.verticalPickerTitle).tag(alignment)
                     }
                 }
                 .labelsHidden()

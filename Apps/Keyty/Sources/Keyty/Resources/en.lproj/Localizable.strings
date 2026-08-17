@@ -54,6 +54,12 @@
 "displays.custom_horizontal_alignment_subtitle" = "Choose how the overlay expands horizontally from the custom position.";
 "displays.custom_vertical_alignment_label" = "Vertical Alignment";
 "displays.custom_vertical_alignment_subtitle" = "Choose how the overlay expands vertically from the custom position.";
+"displays.horizontal_alignment_left_to_right" = "Left to Right";
+"displays.horizontal_alignment_center_out" = "Center Out";
+"displays.horizontal_alignment_right_to_left" = "Right to Left";
+"displays.vertical_alignment_top_down" = "Top Down";
+"displays.vertical_alignment_middle_out" = "Middle Out";
+"displays.vertical_alignment_bottom_up" = "Bottom Up";
 
 /* General settings pane */
 "general.appearance_section_title" = "App";
