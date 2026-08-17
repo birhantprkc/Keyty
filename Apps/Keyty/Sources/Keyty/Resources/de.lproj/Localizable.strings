@@ -54,6 +54,12 @@
 "displays.custom_horizontal_alignment_subtitle" = "Wähle, wie sich die Einblendung horizontal von der benutzerdefinierten Position aus ausdehnt.";
 "displays.custom_vertical_alignment_label" = "Vertikale Ausrichtung";
 "displays.custom_vertical_alignment_subtitle" = "Wähle, wie sich die Einblendung vertikal von der benutzerdefinierten Position aus ausdehnt.";
+"displays.horizontal_alignment_left_to_right" = "Von links nach rechts";
+"displays.horizontal_alignment_center_out" = "Aus der Mitte";
+"displays.horizontal_alignment_right_to_left" = "Von rechts nach links";
+"displays.vertical_alignment_top_down" = "Von oben nach unten";
+"displays.vertical_alignment_middle_out" = "Aus der Mitte";
+"displays.vertical_alignment_bottom_up" = "Von unten nach oben";
 
 /* General settings pane */
 "general.appearance_section_title" = "App";
