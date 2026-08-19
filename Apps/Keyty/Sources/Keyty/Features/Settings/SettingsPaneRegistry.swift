@@ -55,6 +55,8 @@ struct SettingsPaneRegistry {
                         MouseSettingsPane(
                             pointerRingVisualizer: context.pointerRingVisualizer,
                             pointerRingSettings: context.pointerRingSettings,
+                            pointerRipplesVisualizer: context.pointerRipplesVisualizer,
+                            pointerRipplesSettings: context.pointerRipplesSettings,
                             pointerIconSettings: context.pointerIconSettings
                         )
                     )

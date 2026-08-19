@@ -14,6 +14,8 @@ import XCTest
 final class MouseSettingsPaneViewModelTests: XCTestCase {
     private var ringSettings: PointerRingSettings!
     private var ringVisualizer: PointerRingVisualizer!
+    private var ripplesSettings: PointerRipplesSettings!
+    private var ripplesVisualizer: PointerRipplesVisualizer!
     private var iconSettings: PointerIconSettings!
     private var model: MouseSettingsPaneViewModel!
 
@@ -23,6 +25,9 @@ final class MouseSettingsPaneViewModelTests: XCTestCase {
         self.ringSettings = PointerRingSettings(store: InMemoryKeyValueStore())
         self.ringSettings.registerDefaults()
         self.ringVisualizer = PointerRingVisualizer(settings: self.ringSettings)
+        self.ripplesSettings = PointerRipplesSettings(store: InMemoryKeyValueStore())
+        self.ripplesSettings.registerDefaults()
+        self.ripplesVisualizer = PointerRipplesVisualizer(settings: self.ripplesSettings)
 
         self.iconSettings = PointerIconSettings(store: InMemoryKeyValueStore())
         self.iconSettings.registerDefaults()
@@ -30,6 +35,8 @@ final class MouseSettingsPaneViewModelTests: XCTestCase {
         self.model = MouseSettingsPaneViewModel(
             ringVisualizer: self.ringVisualizer,
             ringSettings: self.ringSettings,
+            ripplesVisualizer: self.ripplesVisualizer,
+            ripplesSettings: self.ripplesSettings,
             iconSettings: self.iconSettings
         )
     }
@@ -37,6 +44,8 @@ final class MouseSettingsPaneViewModelTests: XCTestCase {
     override func tearDown() {
         self.model = nil
         self.iconSettings = nil
+        self.ripplesVisualizer = nil
+        self.ripplesSettings = nil
         self.ringVisualizer = nil
         self.ringSettings = nil
 
@@ -46,10 +55,10 @@ final class MouseSettingsPaneViewModelTests: XCTestCase {
     func testRingSizeIsClampedToItsRangeBeforeReachingSettings() {
         let range = MouseSettingsPaneViewModel.ringSizeRange
 
-        self.model.ringSize = range.upperBound + 100
+        self.model.ring.size = range.upperBound + 100
         XCTAssertEqual(self.ringSettings.size, CGFloat(range.upperBound))
 
-        self.model.ringSize = range.lowerBound - 100
+        self.model.ring.size = range.lowerBound - 100
         XCTAssertEqual(self.ringSettings.size, CGFloat(range.lowerBound))
     }
 
@@ -63,10 +72,10 @@ final class MouseSettingsPaneViewModelTests: XCTestCase {
     func testRingThicknessIsClampedToItsRangeBeforeReachingSettings() {
         let range = MouseSettingsPaneViewModel.ringThicknessRange
 
-        self.model.ringThickness = range.upperBound + 100
+        self.model.ring.thickness = range.upperBound + 100
         XCTAssertEqual(self.ringSettings.thickness, CGFloat(range.upperBound))
 
-        self.model.ringThickness = range.lowerBound - 100
+        self.model.ring.thickness = range.lowerBound - 100
         XCTAssertEqual(self.ringSettings.thickness, CGFloat(range.lowerBound))
     }
 
@@ -77,13 +86,29 @@ final class MouseSettingsPaneViewModelTests: XCTestCase {
         XCTAssertEqual(span.truncatingRemainder(dividingBy: MouseSettingsPaneViewModel.ringThicknessStep), 0)
     }
 
+    func testRipplesEnabledUpdatesSettings() {
+        self.model.ripples.enabled = true
+
+        XCTAssertTrue(self.ripplesSettings.isEnabled)
+    }
+
+    func testEnablingRingDoesNotDisableRipples() {
+        self.model.ripples.enabled = true
+        self.model.ring.enabled = true
+
+        XCTAssertTrue(self.model.ripples.enabled)
+        XCTAssertTrue(self.ripplesSettings.isEnabled)
+        XCTAssertTrue(self.model.ring.enabled)
+        XCTAssertTrue(self.ringSettings.isEnabled)
+    }
+
     func testDefaultIconColorsUsePresetSelections() {
         XCTAssertEqual(
-            self.model.iconBackgroundColorSelectionID,
+            self.model.icon.backgroundColorSelectionID,
             PointerIconSettingsKeys.defaultBackgroundColor.hexString
         )
         XCTAssertEqual(
-            self.model.iconTintColorSelectionID,
+            self.model.icon.tintColorSelectionID,
             PointerIconSettingsKeys.defaultTintColor.hexString
         )
     }
@@ -91,14 +116,14 @@ final class MouseSettingsPaneViewModelTests: XCTestCase {
     func testIconBackgroundSelectionUsesBackgroundPresetSections() {
         let preset = MouseSettingsPaneViewModel.ColorPreset.iconBackgroundColorSections[0][0]
 
-        self.model.selectIconBackgroundColor(with: preset.color.hexString)
+        self.model.icon.selectBackgroundColor(with: preset.color.hexString)
 
-        XCTAssertEqual(self.model.iconBackgroundColorSelectionID, preset.color.hexString)
+        XCTAssertEqual(self.model.icon.backgroundColorSelectionID, preset.color.hexString)
     }
 
     func testIconTintSelectionUsesTintPresetSections() {
-        self.model.selectIconTintColor(with: NSColor.black.hexString)
+        self.model.icon.selectTintColor(with: NSColor.black.hexString)
 
-        XCTAssertEqual(self.model.iconTintColorSelectionID, NSColor.black.hexString)
+        XCTAssertEqual(self.model.icon.tintColorSelectionID, NSColor.black.hexString)
     }
 }

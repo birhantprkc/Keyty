@@ -18,11 +18,15 @@ struct MouseSettingsPane: View {
     init(
         pointerRingVisualizer: PointerRingVisualizer,
         pointerRingSettings: any PointerRingSettingsProtocol,
+        pointerRipplesVisualizer: PointerRipplesVisualizer,
+        pointerRipplesSettings: any PointerRipplesSettingsProtocol,
         pointerIconSettings: any PointerIconSettingsProtocol
     ) {
         _model = StateObject(wrappedValue: MouseSettingsPaneViewModel(
             ringVisualizer: pointerRingVisualizer,
             ringSettings: pointerRingSettings,
+            ripplesVisualizer: pointerRipplesVisualizer,
+            ripplesSettings: pointerRipplesSettings,
             iconSettings: pointerIconSettings
         ))
     }
@@ -39,6 +43,8 @@ struct MouseSettingsPane: View {
                 switch self.model.selectedSettingsTab {
                 case .ring:
                     self.pointerRingSettingsSection
+                case .ripples:
+                    self.pointerRipplesSettingsSection
                 case .icon:
                     self.pointerIconSettingsSection
                 }
@@ -82,6 +88,10 @@ struct MouseSettingsPane: View {
 }
 
 extension MouseSettingsPane {
+    func binding<Value>(get: @escaping () -> Value, set: @escaping (Value) -> Void) -> Binding<Value> {
+        Binding(get: get, set: set)
+    }
+
     func colorMenuItem(title: String, swatchColor: NSColor, tag: String) -> some View {
         HStack(spacing: Spacing.xs) {
             SwiftUI.Image(nsImage: swatchColor.swatchImage())
