@@ -24,6 +24,24 @@ final class SystemPermissionsServiceTests: XCTestCase {
         XCTAssertEqual(service.status(for: .accessibility), .granted)
     }
 
+    func testInputMonitoringStatusIsGrantedWhenSystemGrantsPermission() {
+        let provider = TestPermissionsProvider(grantedPermissions: [.inputMonitoring])
+        let service = SystemPermissionsService(provider: provider)
+
+        XCTAssertEqual(service.status(for: .inputMonitoring), .granted)
+    }
+
+    func testCanCaptureInputEventsWhenActivePermissionIsGranted() {
+        let activeProvider = TestPermissionsProvider(grantedPermissions: [.inputCapture])
+        let inactivePermission: Permission = Permission.inputCapture == .inputMonitoring ? .accessibility : .inputMonitoring
+        let inactiveProvider = TestPermissionsProvider(grantedPermissions: [inactivePermission])
+        let deniedProvider = TestPermissionsProvider()
+
+        XCTAssertTrue(SystemPermissionsService(provider: activeProvider).canCaptureInputEvents)
+        XCTAssertFalse(SystemPermissionsService(provider: inactiveProvider).canCaptureInputEvents)
+        XCTAssertFalse(SystemPermissionsService(provider: deniedProvider).canCaptureInputEvents)
+    }
+
     func testStatusFollowsSystemStateWithoutRememberingPastRequests() {
         let provider = TestPermissionsProvider()
         let service = SystemPermissionsService(provider: provider)
@@ -48,6 +66,18 @@ final class SystemPermissionsServiceTests: XCTestCase {
         provider.grantedPermissions = []
         service.request(.accessibility)
         XCTAssertEqual(provider.requestedPermissions, [.accessibility])
+    }
+
+    func testInputMonitoringRequestIsForwardedOnlyWhenPermissionIsNotGranted() {
+        let provider = TestPermissionsProvider(grantedPermissions: [.inputMonitoring])
+        let service = SystemPermissionsService(provider: provider)
+
+        service.request(.inputMonitoring)
+        XCTAssertEqual(provider.requestedPermissions, [])
+
+        provider.grantedPermissions = []
+        service.request(.inputMonitoring)
+        XCTAssertEqual(provider.requestedPermissions, [.inputMonitoring])
     }
 
     func testObserverIsNotifiedWhenSystemStatusChanges() {

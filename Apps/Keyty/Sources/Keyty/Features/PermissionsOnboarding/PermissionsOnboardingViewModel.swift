@@ -11,12 +11,14 @@ import SwiftUI
 
 @MainActor
 final class PermissionsOnboardingViewModel: ObservableObject {
-    var accessibilityStatus: Permission.Status {
-        self.permissionsService.status(for: .accessibility)
+    var inputCapturePermission: Permission { .inputCapture }
+
+    var inputCaptureStatus: Permission.Status {
+        self.permissionsService.status(for: .inputCapture)
     }
 
     var isComplete: Bool {
-        self.accessibilityStatus == .granted
+        self.permissionsService.canCaptureInputEvents
     }
 
     var onCompletion: (() -> Void)?
@@ -38,8 +40,8 @@ final class PermissionsOnboardingViewModel: ObservableObject {
         }
     }
 
-    func requestAccessibility() {
-        self.handlePermissionAction(for: .accessibility)
+    func requestInputCapturePermission() {
+        self.handlePermissionAction(for: .inputCapture)
     }
 
     func continueIfComplete() {

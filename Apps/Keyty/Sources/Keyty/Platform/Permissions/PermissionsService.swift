@@ -14,6 +14,12 @@ protocol PermissionsService: AnyObject {
     func observeChanges(handler: @escaping () -> Void) -> PermissionObservationToken
 }
 
+extension PermissionsService {
+    var canCaptureInputEvents: Bool {
+        self.status(for: .inputCapture) == .granted
+    }
+}
+
 /// Holds an observation; cancels it automatically on deinit.
 final class PermissionObservationToken {
     private let cancel: () -> Void
