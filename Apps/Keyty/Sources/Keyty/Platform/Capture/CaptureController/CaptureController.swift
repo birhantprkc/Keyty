@@ -7,14 +7,20 @@
 //
 
 import Cocoa
+import Combine
 
 final class CaptureController {
     var isCapturing: Bool { self.state == .capturing }
     var onCapturingChanged: ((Bool) -> Void)?
+    var isCapturingChanges: AnyPublisher<Bool, Never> {
+        self.isCapturingSubject.eraseToAnyPublisher()
+    }
+    
     private var shouldCapture: Bool = true
     private var state: State = .idle
     private var tapDisableCount: Int = 0
     private let maxTapDisableCountBeforeReinstall = 3
+    private let isCapturingSubject = PassthroughSubject<Bool, Never>()
 
     private let eventTap: any EventTapping
     private let eventProcessor = EventProcessor()
@@ -53,6 +59,7 @@ extension CaptureController {
         self.transition(trigger: .appStarted)
     }
 
+    /// Starts capturing input events immediately when the required permission is available.
     @discardableResult func startCapturing() -> Bool {
         do {
             try self.eventTap.install()
@@ -63,11 +70,13 @@ extension CaptureController {
         return true
     }
 
+    /// Stops capturing input events and hides all active input visualizations.
     func stopCapturing() {
         self.shouldCapture = false
         self.transition(trigger: .userDisabledCapture)
     }
 
+    /// Switches input capture between its enabled and disabled states.
     func toggleCapturing() {
         self.shouldCapture.toggle()
         self.transition(trigger: self.shouldCapture ? .userEnabledCapture : .userDisabledCapture)
@@ -128,6 +137,7 @@ private extension CaptureController {
         }
         if wasCapturing != capturing {
             self.onCapturingChanged?(capturing)
+            self.isCapturingSubject.send(capturing)
         }
     }
 
