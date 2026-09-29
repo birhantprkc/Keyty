@@ -86,10 +86,46 @@ final class MouseSettingsPaneViewModelTests: XCTestCase {
         XCTAssertEqual(span.truncatingRemainder(dividingBy: MouseSettingsPaneViewModel.ringThicknessStep), 0)
     }
 
+    func testRingTimingIsClampedToItsRangesBeforeReachingSettings() {
+        self.model.ring.displayDuration = MouseSettingsPaneViewModel.ringDisplayDurationRange.upperBound + 1
+        self.model.ring.fadeDuration = MouseSettingsPaneViewModel.ringFadeDurationRange.lowerBound - 1
+
+        XCTAssertEqual(
+            self.ringSettings.displayDuration,
+            PointerRingSettingsKeys.displayDurationRange.upperBound
+        )
+        XCTAssertEqual(
+            self.ringSettings.fadeDuration,
+            PointerRingSettingsKeys.fadeDurationRange.lowerBound
+        )
+    }
+
     func testRipplesEnabledUpdatesSettings() {
         self.model.ripples.enabled = true
 
         XCTAssertTrue(self.ripplesSettings.isEnabled)
+    }
+
+    func testRipplesDurationIsClampedToItsRangeBeforeReachingSettings() {
+        self.model.ripples.duration = MouseSettingsPaneViewModel.ripplesDurationRange.upperBound + 1
+        XCTAssertEqual(self.ripplesSettings.duration, PointerRipplesSettingsKeys.durationRange.upperBound)
+
+        self.model.ripples.duration = MouseSettingsPaneViewModel.ripplesDurationRange.lowerBound - 1
+        XCTAssertEqual(self.ripplesSettings.duration, PointerRipplesSettingsKeys.durationRange.lowerBound)
+    }
+
+    func testIconDisplayDurationsAreClampedToTheirRangesBeforeReachingSettings() {
+        self.model.icon.clickDisplayDuration = MouseSettingsPaneViewModel.iconClickDisplayDurationRange.upperBound + 1
+        self.model.icon.scrollDisplayDuration = MouseSettingsPaneViewModel.iconScrollDisplayDurationRange.lowerBound - 1
+
+        XCTAssertEqual(
+            self.iconSettings.clickDisplayDuration,
+            PointerIconSettingsKeys.clickDisplayDurationRange.upperBound
+        )
+        XCTAssertEqual(
+            self.iconSettings.scrollDisplayDuration,
+            PointerIconSettingsKeys.scrollDisplayDurationRange.lowerBound
+        )
     }
 
     func testEnablingRingDoesNotDisableRipples() {
